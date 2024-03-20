@@ -12,8 +12,9 @@ export function useLogin() {
     isPending: isLoggingIn,
   } = useMutation({
     mutationFn: ({ email, password }: TLogin) => signInApi({ email, password }),
-    onSuccess: () => {
-      navigate('/dashboard');
+    onSuccess: (user) => {
+      localStorage.setItem('docChatAuthToken', user.session.access_token);
+      navigate('/documents');
     },
   });
 

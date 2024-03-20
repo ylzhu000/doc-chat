@@ -1,9 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
+import NotFoundRoute from './pages/NotFoundRoute';
+import LoginRoute from './pages/LoginRoute';
+import DocumentsRoute from './pages/DocumentsRoute';
+
 import Layout from './components/Layout';
-import NotFound from './pages/NotFound';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
 import AuthGuard from './components/AuthGuard';
 
 const queryClient = new QueryClient({
@@ -26,11 +28,11 @@ export default function App() {
               </AuthGuard>
             }
           >
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route index element={<Navigate replace to="documents" />} />
+            <Route path="documents" element={<DocumentsRoute />} />
           </Route>
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="login" element={<LoginRoute />} />
+          <Route path="*" element={<NotFoundRoute />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
