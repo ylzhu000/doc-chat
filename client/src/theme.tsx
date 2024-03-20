@@ -16,6 +16,7 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ['-apple-system', 'BlinkMacSystemFont', 'Poppins', 'sans-serif'].join(','),
+    fontFamily: ['Poppins', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'].join(','),
+    htmlFontSize: 10,
   },
 });
