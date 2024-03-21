@@ -4,6 +4,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import NotFoundRoute from './pages/NotFoundRoute';
 import LoginRoute from './pages/LoginRoute';
 import DocumentsRoute from './pages/DocumentsRoute';
+import ChatRoute from './pages/ChatRoute';
 
 import Layout from './components/Layout';
 import AuthGuard from './components/AuthGuard';
@@ -30,6 +31,7 @@ export default function App() {
           >
             <Route index element={<Navigate replace to="documents" />} />
             <Route path="documents" element={<DocumentsRoute />} />
+            <Route path="documents/:id" element={<ChatRoute />} />
           </Route>
           <Route path="login" element={<LoginRoute />} />
           <Route path="*" element={<NotFoundRoute />} />

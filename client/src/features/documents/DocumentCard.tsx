@@ -1,9 +1,9 @@
 import { Card } from '@mui/material';
 import DocumentList from './DocumentList';
-
-const documents = [{ fileName: 'file1' }, { fileName: 'file2' }, { fileName: 'file3' }];
+import { useDocuments } from './useDocuments';
 
 export default function DocumentCard() {
+  const { documents } = useDocuments();
   return (
     <Card>
       <DocumentList documents={documents} />

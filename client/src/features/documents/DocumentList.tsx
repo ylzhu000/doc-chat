@@ -1,21 +1,27 @@
-import { Divider, IconButton, List, ListItem } from '@mui/material';
-import { DeleteOutline } from '@mui/icons-material';
+import { Divider, IconButton, List, ListItem, ListItemText } from '@mui/material';
+import { ChatOutlined } from '@mui/icons-material';
+import DocumentHeader from './DocumentHeader';
+import { useNavigate } from 'react-router-dom';
 
-type TDocumentListProps = { documents: { fileName: string }[] };
+type TDocumentListProps = { documents: { name: string; id: string; updated: string; created: string }[] };
 
 const DocumentList = ({ documents }: TDocumentListProps) => {
+  const navigate = useNavigate();
+
   return (
-    <List>
-      {documents.map((doc, index) => (
+    <List subheader={<DocumentHeader />}>
+      {documents?.map((doc, index) => (
         <>
           <ListItem
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <DeleteOutline />
+              <IconButton edge="end" aria-label="chat" onClick={() => navigate(`/documents/${doc.id}`)}>
+                {/* <DeleteOutline /> */}
+                <ChatOutlined />
               </IconButton>
             }
+            sx={{ py: 2 }}
           >
-            {doc.fileName}
+            <ListItemText primary={doc.name} secondary={doc.created} />
           </ListItem>
           {index !== documents.length - 1 && <Divider />}
         </>

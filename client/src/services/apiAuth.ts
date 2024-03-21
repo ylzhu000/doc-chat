@@ -22,3 +22,13 @@ export const getCurrentUser = async () => {
 
   return data.user;
 };
+
+export const getAccessToken = async () => {
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data.session?.access_token;
+};
