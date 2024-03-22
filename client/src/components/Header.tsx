@@ -1,17 +1,22 @@
-import { AppBar, Toolbar, Button, Box, Menu, MenuItem, IconButton } from '@mui/material';
 import { useState } from 'react';
-import Logo from './Logo';
 import { AccountCircle } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Button, Box, Menu, MenuItem, IconButton, useTheme, styled } from '@mui/material';
+import Logo from './Logo';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
 
 const navItems: { label: string; link: string }[] = [
-  { label: 'Documents', link: '/dashboard/documents' },
-  { label: 'Conversations', link: '/dashboard/conversations' },
+  { label: 'Documents', link: '/' },
+  { label: 'Conversations', link: '/' },
 ];
 const menuItems: string[] = ['Settings', 'Logout'];
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
+  const theme = useTheme();
 
   const onMenuClose = () => {
     setOpenMenu(null);
@@ -22,14 +27,14 @@ export default function Header() {
   };
 
   return (
-    <AppBar component="nav">
+    <AppBar component="nav" sx={{ backgroundColor: theme.palette.primary.dark }}>
       <Toolbar>
         <Logo />
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {navItems.map((nav) => (
-            <Link to={nav.link} key={nav.label}>
+            <StyledLink to={nav.link} key={nav.label}>
               <Button sx={{ color: 'white', display: 'block' }}>{nav.label}</Button>
-            </Link>
+            </StyledLink>
           ))}
         </Box>
         <Box sx={{ flexGrow: 0 }}>

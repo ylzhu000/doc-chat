@@ -21,3 +21,27 @@ export const getDocuments = async () => {
     throw new Error(String(err));
   }
 };
+
+export const uploadDocument = async (formData: FormData) => {
+  const token = await getAccessToken();
+
+  try {
+    const data = await fetch(`${import.meta.env.VITE_APP_API_URL}/upload/`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(async (res: any) => {
+      const jsonRes = await res.json();
+      if (res.status !== 200) {
+        throw new Error(jsonRes?.detail);
+      }
+      return jsonRes;
+    });
+
+    return data;
+  } catch (err) {
+    throw new Error('Error when uploading the document');
+  }
+};

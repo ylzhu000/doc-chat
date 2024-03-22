@@ -13,7 +13,7 @@ export function useLogin() {
   } = useMutation({
     mutationFn: ({ email, password }: TLogin) => signInApi({ email, password }),
     onSuccess: () => {
-      navigate('/documents');
+      navigate('/documents', { replace: true });
     },
   });
 
