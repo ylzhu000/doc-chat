@@ -1,8 +1,10 @@
 import { getAccessToken } from './apiAuth';
 export const getDocuments = async () => {
   const token = await getAccessToken();
+  const { VITE_APP_API_URL, VITE_APP_API_VERSION } = import.meta.env;
+
   try {
-    let files = await fetch(`${import.meta.env.VITE_APP_API_URL}/documents`, {
+    let files = await fetch(`${VITE_APP_API_URL}/api/${VITE_APP_API_VERSION}/documents`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -24,9 +26,10 @@ export const getDocuments = async () => {
 
 export const uploadDocument = async (formData: FormData) => {
   const token = await getAccessToken();
+  const { VITE_APP_API_URL, VITE_APP_API_VERSION } = import.meta.env;
 
   try {
-    const data = await fetch(`${import.meta.env.VITE_APP_API_URL}/upload/`, {
+    const data = await fetch(`${VITE_APP_API_URL}/api/${VITE_APP_API_VERSION}/upload/`, {
       method: 'POST',
       body: formData,
       headers: {
