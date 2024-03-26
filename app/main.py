@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Depends
+import uvicorn
+from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import upload, documents
-from .dependencies.auth_dependencies import verify_auth_token
+from .routers import upload, documents, conversations
 
 load_dotenv(".env")
 
@@ -23,10 +23,11 @@ app.add_middleware(
 
 app.include_router(upload.router)
 app.include_router(documents.router)
+app.include_router(conversations.router)
 
 
 @app.get("/")
-async def home():
+def home():
     return {
         "message": "Hello from DocChat"
     }

@@ -1,3 +1,4 @@
+import json
 import os
 from fastapi import APIRouter, UploadFile, File, HTTPException, Request, Depends
 from ..chat.create_embeddings import create_embeddings_for_pdf
@@ -5,13 +6,12 @@ from ..services.supabase_service import get_supbase_client
 from ..dependencies.auth_dependencies import verify_auth_token
 from ..services.supabase_service import get_files, upload_file_to_supabase, get_public_url
 
-router = APIRouter()
-supabase_client = get_supbase_client()
+router = APIRouter(prefix=f"/api/{os.getenv('API_VERSION')}/upload", tags=["upload"])
 
 
-@router.post("/upload/", tags=["upload"])
-async def upload_file(file: UploadFile = File(...), ):
-    user_id = "6219d289-e1b8-4583-9b24-c212ef51802f"
+@router.post("/")
+async def upload_file(user_id: str = Depends(verify_auth_token),
+                      file: UploadFile = File(...), ):
     file_content = await file.read()
     file_name = file.filename
 
@@ -37,8 +37,7 @@ async def upload_file(file: UploadFile = File(...), ):
                 "message": "File has been uploaded successfully"
             }
         else:
-            return {
-                "message": "Error occur when processing the file"
-            }
+            raise HTTPException(status_code=500, detail="Error when processing the document")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        print(e)
+        raise HTTPException(status_code=500, detail="Error when uploading the document")
