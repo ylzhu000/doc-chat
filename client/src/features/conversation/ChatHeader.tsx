@@ -1,4 +1,4 @@
-import { Select, Button, MenuItem, Grid, FormControl, InputLabel } from '@mui/material';
+import { Select, Button, MenuItem, Grid, FormControl, InputLabel, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 type TChatHeaderProps = {
